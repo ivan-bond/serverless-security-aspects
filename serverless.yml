@@ -1,0 +1,109 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+
+plugins:
+  - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminConfirmSignUp
+      Resource:
+        - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${CognitoUserPool}
+  environment:
+    COGNITO_CLIENT_ID:
+      Ref: CognitoUserPoolClient
+    COGNITO_USER_POOL_ID:
+      Ref: CognitoUserPool
+
+functions:
+  addTodo:
+    handler: src/handler/addTodo.handler
+    events:
+      - httpApi:
+          path: /
+          method: post
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource:
+          Fn::GetAtt:
+            - TodoTable
+            - Arn
+
+  fetchTodos:
+    handler: src/handler/fetchTodos.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: get
+
+  fetchTodo:
+    handler: src/handler/fetchTodo.handler
+    events:
+      - httpApi:
+          path: /todo/{id}
+          method: get
+          
+  updateTodo:
+    handler: src/handler/updateTodo.handler
+    events:
+      - httpApi:
+          path: /todo/{id}
+          method: put
+
+  registerUser:
+    handler: src/handler/register.handler
+    events:
+      - http:
+          method: post
+          path: /register
+
+  loginUser:
+    handler: src/handler/login.handler
+    events:
+      - http:
+          method: post
+          path: /login
+
+resources:
+  Resources:
+    TodoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TodoTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: TodoUserPool
+        Schema:
+          - Name: email
+            AttributeDataType: String
+            Mutable: true
+            Required: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: TodoUserPoolClient
+        GenerateSecret: false
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - USER_PASSWORD_AUTH
