@@ -19,6 +19,8 @@ provider:
       Ref: CognitoUserPoolClient
     COGNITO_USER_POOL_ID:
       Ref: CognitoUserPool
+    TABLE_NAME:
+      Ref: TodoTable
 
 functions:
   addTodo:

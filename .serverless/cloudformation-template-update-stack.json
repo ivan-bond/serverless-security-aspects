@@ -203,7 +203,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/addTodo.handler",
         "Runtime": "nodejs18.x",
@@ -217,6 +217,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -239,7 +242,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/fetchTodos.handler",
         "Runtime": "nodejs18.x",
@@ -253,6 +256,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -274,7 +280,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/fetchTodo.handler",
         "Runtime": "nodejs18.x",
@@ -288,6 +294,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -309,7 +318,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/updateTodo.handler",
         "Runtime": "nodejs18.x",
@@ -323,6 +332,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -344,7 +356,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/register.handler",
         "Runtime": "nodejs18.x",
@@ -358,6 +370,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -379,7 +394,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1719791543884-2024-06-30T23:52:23.884Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723497039959-2024-08-12T21:10:39.959Z/aws-node-http-api-project.zip"
         },
         "Handler": "src/handler/login.handler",
         "Runtime": "nodejs18.x",
@@ -393,6 +408,9 @@
             },
             "COGNITO_USER_POOL_ID": {
               "Ref": "CognitoUserPool"
+            },
+            "TABLE_NAME": {
+              "Ref": "TodoTable"
             }
           }
         },
@@ -407,64 +425,64 @@
         "LoginUserLogGroup"
       ]
     },
-    "AddTodoLambdaVersion732xIX6viPZXyYuAU2V6Fg6qP6iBfv5dKIbr2tdmpBM": {
+    "AddTodoLambdaVersioniYvyGOEexcgPof4BWVDcUIIyFHf7x2UCg5GwhHYmO4A": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AddTodoLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
-    "FetchTodosLambdaVersionWidnWpluuQa2WOiMj7cZEQCHJmMbH9JtMWOQioo3fo": {
+    "FetchTodosLambdaVersionOU9uor53dYCZfUWqRkDxmYqqM80d8KScG3PzUD4vsEc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FetchTodosLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
-    "FetchTodoLambdaVersionuLkkpVvKSmeaM4ASRTcFjkgiS4UXBGQdkdpvVU3lhM": {
+    "FetchTodoLambdaVersionNjTy6Xy79J1Be2jJy6oHNpVe6VwEeBLPyNNhUQRc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FetchTodoLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
-    "UpdateTodoLambdaVersionMelPas7yzpjb1t97wmwtz1LU3UvOtueXJ6dFahJf6Y": {
+    "UpdateTodoLambdaVersionTwekR7y81zKzzfPwX4ZLcTVq12bgX0HiK3kfOXVuSo": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateTodoLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
-    "RegisterUserLambdaVersionZahhJCdDhtVvVL4w11QSCkvcIoqAxUpor2pC0TaLRpE": {
+    "RegisterUserLambdaVersion4BHVLNREb8uh42UIcyjKmHa4ez0vanUQ4uubXtk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "RegisterUserLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
-    "LoginUserLambdaVersiongC8NIWZlAO671k9S9oUIrYC7nEg5R6WJmrPB7bCQWY": {
+    "LoginUserLambdaVersionfXMawAVNmRy1KdFDL7PHvexiLGzW8MdCTTQdnZT3I": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "LoginUserLambdaFunction"
         },
-        "CodeSha256": "PMt0BvIDygxzjosALLBk+iJWvbDVbDU9ExSqO54cUaU="
+        "CodeSha256": "/pnakfSwI4+lVelfrcN/prPTBq7kTKyXeIcQ0cuoOEo="
       }
     },
     "ApiGatewayRestApi": {
@@ -601,7 +619,7 @@
         "LoginUserLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1719791538061": {
+    "ApiGatewayDeployment1723497036475": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1153,7 +1171,7 @@
     "AddTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AddTodoLambdaVersion732xIX6viPZXyYuAU2V6Fg6qP6iBfv5dKIbr2tdmpBM"
+        "Ref": "AddTodoLambdaVersioniYvyGOEexcgPof4BWVDcUIIyFHf7x2UCg5GwhHYmO4A"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-AddTodoLambdaFunctionQualifiedArn"
@@ -1162,7 +1180,7 @@
     "FetchTodosLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FetchTodosLambdaVersionWidnWpluuQa2WOiMj7cZEQCHJmMbH9JtMWOQioo3fo"
+        "Ref": "FetchTodosLambdaVersionOU9uor53dYCZfUWqRkDxmYqqM80d8KScG3PzUD4vsEc"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-FetchTodosLambdaFunctionQualifiedArn"
@@ -1171,7 +1189,7 @@
     "FetchTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FetchTodoLambdaVersionuLkkpVvKSmeaM4ASRTcFjkgiS4UXBGQdkdpvVU3lhM"
+        "Ref": "FetchTodoLambdaVersionNjTy6Xy79J1Be2jJy6oHNpVe6VwEeBLPyNNhUQRc"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-FetchTodoLambdaFunctionQualifiedArn"
@@ -1180,7 +1198,7 @@
     "UpdateTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateTodoLambdaVersionMelPas7yzpjb1t97wmwtz1LU3UvOtueXJ6dFahJf6Y"
+        "Ref": "UpdateTodoLambdaVersionTwekR7y81zKzzfPwX4ZLcTVq12bgX0HiK3kfOXVuSo"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-UpdateTodoLambdaFunctionQualifiedArn"
@@ -1189,7 +1207,7 @@
     "RegisterUserLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "RegisterUserLambdaVersionZahhJCdDhtVvVL4w11QSCkvcIoqAxUpor2pC0TaLRpE"
+        "Ref": "RegisterUserLambdaVersion4BHVLNREb8uh42UIcyjKmHa4ez0vanUQ4uubXtk"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -1198,7 +1216,7 @@
     "LoginUserLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "LoginUserLambdaVersiongC8NIWZlAO671k9S9oUIrYC7nEg5R6WJmrPB7bCQWY"
+        "Ref": "LoginUserLambdaVersionfXMawAVNmRy1KdFDL7PHvexiLGzW8MdCTTQdnZT3I"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-LoginUserLambdaFunctionQualifiedArn"
