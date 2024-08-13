@@ -1,3 +1,5 @@
+org: presentolo
+app: serverless-aws-security
 service: aws-node-http-api-project
 frameworkVersion: '3'
 
