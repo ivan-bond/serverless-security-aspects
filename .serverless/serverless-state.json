@@ -8,6 +8,12 @@
       "name": "aws",
       "runtime": "nodejs18.x",
       "region": "eu-central-1",
+      "logs": {
+        "restApi": false,
+        "httpApi": {
+          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourcePath\":\"$context.routeKey\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"stage\":\"$context.stage\",\"status\":\"$context.status\",\"integrationStatus\":\"$context.integrationStatus\",\"integrationLatency\":\"$context.integrationLatency\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_HTTP_API_LOG\",\"version\":\"1.0.0\"}"
+        }
+      },
       "iamRoleStatements": [
         {
           "Effect": "Allow",
@@ -307,7 +313,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_addTodo.handler",
               "Runtime": "nodejs18.x",
@@ -346,7 +352,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodos.handler",
               "Runtime": "nodejs18.x",
@@ -384,7 +390,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodo.handler",
               "Runtime": "nodejs18.x",
@@ -422,7 +428,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_updateTodo.handler",
               "Runtime": "nodejs18.x",
@@ -460,7 +466,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_registerUser.handler",
               "Runtime": "nodejs18.x",
@@ -498,7 +504,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_loginUser.handler",
               "Runtime": "nodejs18.x",
@@ -529,64 +535,64 @@
               "LoginUserLogGroup"
             ]
           },
-          "AddTodoLambdaVersiont2HKfBt6QqUPF9zfNOmWV0RzKLYTlipjrc1V6b8VFPk": {
+          "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddTodoLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
-          "FetchTodosLambdaVersionKalraWgUkZl3e8dobQsN2ZIFXhPegKHdm2EKhm7Y": {
+          "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodosLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
-          "FetchTodoLambdaVersionO17MAnW2zOUXBwPdD1LCXJ5AylUORu4POjOLMVTWuWs": {
+          "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodoLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
-          "UpdateTodoLambdaVersiondxwAiAbUtvKteC2YzRIQAjF3SEdAWupNrCK7fGbwE": {
+          "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateTodoLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
-          "RegisterUserLambdaVersiont3OEjWfgUKfxcYSBRcHywKjJN28uLdeNppkGpIXLA": {
+          "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RegisterUserLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
-          "LoginUserLambdaVersionPS8tUGd8n1pspQKx1N9s7mhONzmowQv6ZBwsvP8XkI": {
+          "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "LoginUserLambdaFunction"
               },
-              "CodeSha256": "sMMzKPB/aqcZLXNzhL0kIspqskKqJ2Z89pNdM47P1bM="
+              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
             }
           },
           "ApiGatewayRestApi": {
@@ -723,7 +729,7 @@
               "LoginUserLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1723559235245": {
+          "ApiGatewayDeployment1723562005745": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -809,133 +815,6 @@
                 ]
               }
             }
-          },
-          "ApiGatewayLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/api-gateway/aws-node-http-api-project-dev"
-            }
-          },
-          "CustomApiGatewayAccountCloudWatchRole": {
-            "Type": "Custom::ApiGatewayAccountRole",
-            "Version": 1,
-            "Properties": {
-              "ServiceToken": {
-                "Fn::GetAtt": [
-                  "CustomDashresourceDashapigwDashcwDashroleLambdaFunction",
-                  "Arn"
-                ]
-              }
-            }
-          },
-          "IamRoleCustomResourcesLambdaExecution": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-              "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": [
-                        "lambda.amazonaws.com"
-                      ]
-                    },
-                    "Action": [
-                      "sts:AssumeRole"
-                    ]
-                  }
-                ]
-              },
-              "Policies": [
-                {
-                  "PolicyName": {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "dev",
-                        "aws-node-http-api-project",
-                        "custom-resources-lambda"
-                      ]
-                    ]
-                  },
-                  "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                      {
-                        "Effect": "Allow",
-                        "Resource": {
-                          "Fn::Join": [
-                            ":",
-                            [
-                              "arn",
-                              {
-                                "Ref": "AWS::Partition"
-                              },
-                              "iam:",
-                              {
-                                "Ref": "AWS::AccountId"
-                              },
-                              "role/*"
-                            ]
-                          ]
-                        },
-                        "Action": [
-                          "iam:AttachRolePolicy",
-                          "iam:CreateRole",
-                          "iam:ListAttachedRolePolicies",
-                          "iam:PassRole"
-                        ]
-                      },
-                      {
-                        "Effect": "Allow",
-                        "Resource": {
-                          "Fn::Join": [
-                            ":",
-                            [
-                              "arn",
-                              {
-                                "Ref": "AWS::Partition"
-                              },
-                              "apigateway:*::/account"
-                            ]
-                          ]
-                        },
-                        "Action": [
-                          "apigateway:GET",
-                          "apigateway:PATCH"
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          "CustomDashresourceDashapigwDashcwDashroleLambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Properties": {
-              "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z/custom-resources.zip"
-              },
-              "FunctionName": "aws-node-http-api-project-dev-custom-resource-apigw-cw-role",
-              "Handler": "api-gateway-cloud-watch-role/handler.handler",
-              "MemorySize": 1024,
-              "Runtime": "nodejs18.x",
-              "Timeout": 180,
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleCustomResourcesLambdaExecution",
-                  "Arn"
-                ]
-              }
-            },
-            "DependsOn": [
-              "IamRoleCustomResourcesLambdaExecution"
-            ]
           },
           "HttpApi": {
             "Type": "AWS::ApiGatewayV2::Api",
@@ -1417,7 +1296,7 @@
           "AddTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddTodoLambdaVersiont2HKfBt6QqUPF9zfNOmWV0RzKLYTlipjrc1V6b8VFPk"
+              "Ref": "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-AddTodoLambdaFunctionQualifiedArn"
@@ -1426,7 +1305,7 @@
           "FetchTodosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodosLambdaVersionKalraWgUkZl3e8dobQsN2ZIFXhPegKHdm2EKhm7Y"
+              "Ref": "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodosLambdaFunctionQualifiedArn"
@@ -1435,7 +1314,7 @@
           "FetchTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodoLambdaVersionO17MAnW2zOUXBwPdD1LCXJ5AylUORu4POjOLMVTWuWs"
+              "Ref": "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodoLambdaFunctionQualifiedArn"
@@ -1444,7 +1323,7 @@
           "UpdateTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateTodoLambdaVersiondxwAiAbUtvKteC2YzRIQAjF3SEdAWupNrCK7fGbwE"
+              "Ref": "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-UpdateTodoLambdaFunctionQualifiedArn"
@@ -1453,7 +1332,7 @@
           "RegisterUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RegisterUserLambdaVersiont3OEjWfgUKfxcYSBRcHywKjJN28uLdeNppkGpIXLA"
+              "Ref": "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -1462,7 +1341,7 @@
           "LoginUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "LoginUserLambdaVersionPS8tUGd8n1pspQKx1N9s7mhONzmowQv6ZBwsvP8XkI"
+              "Ref": "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-LoginUserLambdaFunctionQualifiedArn"
@@ -1612,14 +1491,6 @@
           }
         }
       },
-      "logs": {
-        "restApi": {
-          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourceId\":\"$context.resourceId\",\"resourcePath\":\"$context.resourcePath\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"status\":\"$context.status\",\"authLatency\":\"$context.authorizer.integrationLatency\",\"integrationLatency\":\"$context.integrationLatency\",\"integrationStatus\":\"$context.integrationStatus\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_ACCESS_LOG\",\"version\":\"1.0.0\"}"
-        },
-        "httpApi": {
-          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourcePath\":\"$context.routeKey\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"stage\":\"$context.stage\",\"status\":\"$context.status\",\"integrationStatus\":\"$context.integrationStatus\",\"integrationLatency\":\"$context.integrationLatency\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_HTTP_API_LOG\",\"version\":\"1.0.0\"}"
-        }
-      },
       "vpc": {}
     },
     "plugins": [
@@ -1650,7 +1521,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AddTodoLambdaVersiont2HKfBt6QqUPF9zfNOmWV0RzKLYTlipjrc1V6b8VFPk"
+        "versionLogicalId": "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw"
       },
       "fetchTodos": {
         "handler": "s_fetchTodos.handler",
@@ -1670,7 +1541,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodosLambdaVersionKalraWgUkZl3e8dobQsN2ZIFXhPegKHdm2EKhm7Y"
+        "versionLogicalId": "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM"
       },
       "fetchTodo": {
         "handler": "s_fetchTodo.handler",
@@ -1690,7 +1561,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodoLambdaVersionO17MAnW2zOUXBwPdD1LCXJ5AylUORu4POjOLMVTWuWs"
+        "versionLogicalId": "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68"
       },
       "updateTodo": {
         "handler": "s_updateTodo.handler",
@@ -1710,7 +1581,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "UpdateTodoLambdaVersiondxwAiAbUtvKteC2YzRIQAjF3SEdAWupNrCK7fGbwE"
+        "versionLogicalId": "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0"
       },
       "registerUser": {
         "handler": "s_registerUser.handler",
@@ -1729,7 +1600,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "RegisterUserLambdaVersiont3OEjWfgUKfxcYSBRcHywKjJN28uLdeNppkGpIXLA"
+        "versionLogicalId": "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs"
       },
       "loginUser": {
         "handler": "s_loginUser.handler",
@@ -1748,7 +1619,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "LoginUserLambdaVersionPS8tUGd8n1pspQKx1N9s7mhONzmowQv6ZBwsvP8XkI"
+        "versionLogicalId": "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA"
       }
     },
     "resources": {
@@ -1837,7 +1708,7 @@
     "artifact": "/Users/kc/Desktop/serverless-security-aspects/.serverless/aws-node-http-api-project.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723559242404-2024-08-13T14:27:22.404Z",
+    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z",
     "artifact": "aws-node-http-api-project.zip"
   }
 }

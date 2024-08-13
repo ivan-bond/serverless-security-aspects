@@ -50,7 +50,7 @@ module.exports.handler = middy(async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Note added successfully",
+      message: "Note has been added successfully",
     }),
   };
 
