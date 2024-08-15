@@ -20,6 +20,8 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "serverless-iam-roles-per-function": "^3.2.0"
+    "serverless-api-gateway-throttling": "^2.0.3",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-plugin-aws-alerts": "^1.7.5"
   }
 }

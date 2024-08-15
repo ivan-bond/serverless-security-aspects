@@ -3,15 +3,29 @@ app: serverless-aws-security
 service: aws-node-http-api-project
 frameworkVersion: '3'
 
+configValidationMode: error # Stellt sicher, dass das Deployment bei Konfigurationsfehlern fehlschlägt, indem es eine Validierung der Konfiguration auf Fehler erzwingt.
+
 plugins:
   - serverless-iam-roles-per-function
+  - serverless-api-gateway-throttling
+
+custom:
+  # Configures throttling settings for the API Gateway stage
+  # They apply to all http endpoints, unless specifically overridden
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 1000
+    maxConcurrentRequests: 500
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: eu-central-1
+  tracing:
+    apiGateway: true # Aktiviert X-Ray für API Gateway
+    lambda: true # Aktiviert X-Ray für Lambda-Funktionen
   logs:
     restApi: false
+    httpApi: true # Aktiviert das Logging für HTTP APIs
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -41,6 +55,7 @@ functions:
           Fn::GetAtt:
             - TodoTable
             - Arn
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
 
   fetchTodos:
     handler: src/handler/fetchTodos.handler
@@ -48,6 +63,15 @@ functions:
       - httpApi:
           path: /todos
           method: get
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Scan
+        Resource:
+          Fn::GetAtt:
+            - TodoTable
+            - Arn
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
 
   fetchTodo:
     handler: src/handler/fetchTodo.handler
@@ -55,6 +79,15 @@ functions:
       - httpApi:
           path: /todo/{id}
           method: get
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+        Resource:
+          Fn::GetAtt:
+            - TodoTable
+            - Arn
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
           
   updateTodo:
     handler: src/handler/updateTodo.handler
@@ -62,6 +95,15 @@ functions:
       - httpApi:
           path: /todo/{id}
           method: put
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource:
+          Fn::GetAtt:
+            - TodoTable
+            - Arn
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
 
   registerUser:
     handler: src/handler/register.handler
@@ -69,6 +111,7 @@ functions:
       - http:
           method: post
           path: /register
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
 
   loginUser:
     handler: src/handler/login.handler
@@ -76,6 +119,19 @@ functions:
       - http:
           method: post
           path: /login
+    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+
+  throttlingFunction:
+    handler: src/handler/throttling.handler
+    events:
+      - sns:
+          arn: !Ref TopicInvocationRateAlarm
+          topicName: invocation-rate-alarm
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - lambda:PutFunctionConcurrency
+        Resource: "*"
 
 resources:
   Resources:
@@ -113,3 +169,71 @@ resources:
           Ref: CognitoUserPool
         ExplicitAuthFlows:
           - USER_PASSWORD_AUTH
+
+    TopicErroringLambdaAlarm:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: lambda-fehler-alarm
+
+    ErroringLambdaAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmDescription: Lambda Fehler
+        Namespace: AWS/Lambda
+        MetricName: Errors
+        Statistic: Sum
+        Threshold: 3
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        EvaluationPeriods: 1
+        Period: 300
+        TreatMissingData: breaching
+        AlarmActions:
+          - !Ref TopicErroringLambdaAlarm
+        Dimensions:
+          - Name: FunctionName
+            Value: addTodo
+        
+    TopicErroringLambdaAlarmSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ivanbond123@gmail.com
+        Protocol: email
+        TopicArn: !Ref TopicErroringLambdaAlarm
+
+
+    TopicInvocationRateAlarm:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: invocation-rate-alarm
+
+    InvocationRateAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmDescription: Alarm für hohe Aufrufrate der Lambda-Funktion addTodo
+        Namespace: AWS/Lambda
+        MetricName: Invocations
+        Statistic: Sum
+        Threshold: 100 # Schwellenwert, anpassen je nach Bedarf
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        EvaluationPeriods: 1
+        Period: 60 # Überwachungszeitraum in Sekunden
+        TreatMissingData: breaching
+        AlarmActions:
+          - !Ref TopicInvocationRateAlarm
+        Dimensions:
+          - Name: FunctionName
+            Value: addTodo
+
+    InvocationRateAlarmSubscriptionEmail:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ivanbond123@gmail.com
+        Protocol: email
+        TopicArn: !Ref TopicInvocationRateAlarm
+
+    # InvocationRateAlarmSubscriptionThrottling:
+    #   Type: AWS::SNS::Subscription
+    #   Properties:
+    #     Endpoint: !GetAtt throttlingFunction.Arn
+    #     Protocol: lambda
+    #     TopicArn: !Ref TopicInvocationRateAlarm

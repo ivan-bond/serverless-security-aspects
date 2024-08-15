@@ -8,6 +8,10 @@
       "name": "aws",
       "runtime": "nodejs18.x",
       "region": "eu-central-1",
+      "tracing": {
+        "apiGateway": true,
+        "lambda": true
+      },
       "logs": {
         "restApi": false,
         "httpApi": {
@@ -149,6 +153,12 @@
               "LogGroupName": "/aws/lambda/aws-node-http-api-project-dev-loginUser"
             }
           },
+          "ThrottlingFunctionLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/aws-node-http-api-project-dev-throttlingFunction"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -209,6 +219,16 @@
                       },
                       {
                         "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][0]"
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "xray:PutTraceSegments",
+                          "xray:PutTelemetryRecords"
+                        ],
+                        "Resource": [
+                          "*"
+                        ]
                       }
                     ]
                   }
@@ -297,6 +317,12 @@
                               "LoginUserLogGroup",
                               "Arn"
                             ]
+                          },
+                          {
+                            "Fn::GetAtt": [
+                              "ThrottlingFunctionLogGroup",
+                              "Arn"
+                            ]
                           }
                         ]
                       }
@@ -313,13 +339,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_addTodo.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-addTodo",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -352,13 +381,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodos.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-fetchTodos",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -374,12 +406,13 @@
               },
               "Role": {
                 "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
+                  "FetchTodosIamRoleLambdaExecution",
                   "Arn"
                 ]
               }
             },
             "DependsOn": [
+              "FetchTodosIamRoleLambdaExecution",
               "FetchTodosLogGroup"
             ]
           },
@@ -390,13 +423,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodo.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-fetchTodo",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -412,12 +448,13 @@
               },
               "Role": {
                 "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
+                  "FetchTodoIamRoleLambdaExecution",
                   "Arn"
                 ]
               }
             },
             "DependsOn": [
+              "FetchTodoIamRoleLambdaExecution",
               "FetchTodoLogGroup"
             ]
           },
@@ -428,13 +465,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_updateTodo.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-updateTodo",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -450,12 +490,13 @@
               },
               "Role": {
                 "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
+                  "UpdateTodoIamRoleLambdaExecution",
                   "Arn"
                 ]
               }
             },
             "DependsOn": [
+              "UpdateTodoIamRoleLambdaExecution",
               "UpdateTodoLogGroup"
             ]
           },
@@ -466,13 +507,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_registerUser.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-registerUser",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -504,13 +548,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_loginUser.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "aws-node-http-api-project-dev-loginUser",
               "MemorySize": 1024,
               "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
               "Environment": {
                 "Variables": {
                   "COGNITO_CLIENT_ID": {
@@ -535,64 +582,116 @@
               "LoginUserLogGroup"
             ]
           },
-          "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw": {
+          "ThrottlingFunctionLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+              },
+              "Handler": "s_throttlingFunction.handler",
+              "Runtime": "nodejs18.x",
+              "FunctionName": "aws-node-http-api-project-dev-throttlingFunction",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
+              "Environment": {
+                "Variables": {
+                  "COGNITO_CLIENT_ID": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"COGNITO_CLIENT_ID\"]"
+                  },
+                  "COGNITO_USER_POOL_ID": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"COGNITO_USER_POOL_ID\"]"
+                  },
+                  "TABLE_NAME": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"TABLE_NAME\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "ThrottlingFunctionIamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ThrottlingFunctionIamRoleLambdaExecution",
+              "ThrottlingFunctionLogGroup"
+            ]
+          },
+          "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddTodoLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
-          "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM": {
+          "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodosLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
-          "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68": {
+          "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodoLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
-          "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0": {
+          "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateTodoLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
-          "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs": {
+          "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RegisterUserLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
-          "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA": {
+          "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "LoginUserLambdaFunction"
               },
-              "CodeSha256": "Bk2HblghlNcJms1iSH6h+Lmhqxu09HY9RjnixOvZFBU="
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+            }
+          },
+          "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ThrottlingFunctionLambdaFunction"
+              },
+              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
             }
           },
           "ApiGatewayRestApi": {
@@ -729,7 +828,7 @@
               "LoginUserLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1723562005745": {
+          "ApiGatewayDeployment1723749314466": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -813,6 +912,37 @@
                     "/*/*"
                   ]
                 ]
+              }
+            }
+          },
+          "ThrottlingFunctionSnsSubscriptionInvocationratealarm": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {
+              "TopicArn": {
+                "Ref": "TopicInvocationRateAlarm"
+              },
+              "Protocol": "lambda",
+              "Endpoint": {
+                "Fn::GetAtt": [
+                  "ThrottlingFunctionLambdaFunction",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "ThrottlingFunctionLambdaPermissionInvocationratealarmSNS": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ThrottlingFunctionLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "sns.amazonaws.com",
+              "SourceArn": {
+                "Ref": "TopicInvocationRateAlarm"
               }
             }
           },
@@ -1221,6 +1351,324 @@
               "ManagedPolicyArns": []
             }
           },
+          "FetchTodosIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-node-http-api-project",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-node-http-api-project-dev-fetchTodos:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:Scan"
+                        ],
+                        "Resource": {
+                          "Fn::GetAtt": [
+                            "TodoTable",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-node-http-api-project",
+                    "dev",
+                    "fetchTodos",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
+          },
+          "FetchTodoIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-node-http-api-project",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-node-http-api-project-dev-fetchTodo:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:GetItem"
+                        ],
+                        "Resource": {
+                          "Fn::GetAtt": [
+                            "TodoTable",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-node-http-api-project",
+                    "dev",
+                    "fetchTodo",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
+          },
+          "UpdateTodoIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-node-http-api-project",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-node-http-api-project-dev-updateTodo:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:UpdateItem"
+                        ],
+                        "Resource": {
+                          "Fn::GetAtt": [
+                            "TodoTable",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-node-http-api-project",
+                    "dev",
+                    "updateTodo",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
+          },
+          "ThrottlingFunctionIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-node-http-api-project",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-node-http-api-project-dev-throttlingFunction:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "lambda:PutFunctionConcurrency"
+                        ],
+                        "Resource": "*"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-node-http-api-project",
+                    "dev",
+                    "throttlingFunction",
+                    {
+                      "Ref": "AWS::Region"
+                    }
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
+          },
           "TodoTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
@@ -1271,6 +1719,88 @@
                 "USER_PASSWORD_AUTH"
               ]
             }
+          },
+          "TopicErroringLambdaAlarm": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+              "TopicName": "lambda-fehler-alarm"
+            }
+          },
+          "ErroringLambdaAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+              "AlarmDescription": "Lambda Fehler",
+              "Namespace": "AWS/Lambda",
+              "MetricName": "Errors",
+              "Statistic": "Sum",
+              "Threshold": 3,
+              "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+              "EvaluationPeriods": 1,
+              "Period": 300,
+              "TreatMissingData": "breaching",
+              "AlarmActions": [
+                {
+                  "Ref": "TopicErroringLambdaAlarm"
+                }
+              ],
+              "Dimensions": [
+                {
+                  "Name": "FunctionName",
+                  "Value": "addTodo"
+                }
+              ]
+            }
+          },
+          "TopicErroringLambdaAlarmSubscription": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {
+              "Endpoint": "ivanbond123@gmail.com",
+              "Protocol": "email",
+              "TopicArn": {
+                "Ref": "TopicErroringLambdaAlarm"
+              }
+            }
+          },
+          "TopicInvocationRateAlarm": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+              "TopicName": "invocation-rate-alarm"
+            }
+          },
+          "InvocationRateAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+              "AlarmDescription": "Alarm für hohe Aufrufrate der Lambda-Funktion addTodo",
+              "Namespace": "AWS/Lambda",
+              "MetricName": "Invocations",
+              "Statistic": "Sum",
+              "Threshold": 100,
+              "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+              "EvaluationPeriods": 1,
+              "Period": 60,
+              "TreatMissingData": "breaching",
+              "AlarmActions": [
+                {
+                  "Ref": "TopicInvocationRateAlarm"
+                }
+              ],
+              "Dimensions": [
+                {
+                  "Name": "FunctionName",
+                  "Value": "addTodo"
+                }
+              ]
+            }
+          },
+          "InvocationRateAlarmSubscriptionEmail": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {
+              "Endpoint": "ivanbond123@gmail.com",
+              "Protocol": "email",
+              "TopicArn": {
+                "Ref": "TopicInvocationRateAlarm"
+              }
+            }
           }
         },
         "Outputs": {
@@ -1296,7 +1826,7 @@
           "AddTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw"
+              "Ref": "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-AddTodoLambdaFunctionQualifiedArn"
@@ -1305,7 +1835,7 @@
           "FetchTodosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM"
+              "Ref": "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodosLambdaFunctionQualifiedArn"
@@ -1314,7 +1844,7 @@
           "FetchTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68"
+              "Ref": "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodoLambdaFunctionQualifiedArn"
@@ -1323,7 +1853,7 @@
           "UpdateTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0"
+              "Ref": "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-UpdateTodoLambdaFunctionQualifiedArn"
@@ -1332,7 +1862,7 @@
           "RegisterUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs"
+              "Ref": "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -1341,10 +1871,19 @@
           "LoginUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA"
+              "Ref": "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-LoginUserLambdaFunctionQualifiedArn"
+            }
+          },
+          "ThrottlingFunctionLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0"
+            },
+            "Export": {
+              "Name": "sls-aws-node-http-api-project-dev-ThrottlingFunctionLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -1405,6 +1944,24 @@
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-HttpApiUrl"
+            }
+          },
+          "RestApiIdForApigThrottling": {
+            "Description": "REST API ID",
+            "Value": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "Export": {
+              "Name": "sls-aws-node-http-api-project-dev-RestApiIdForApigThrottling"
+            }
+          },
+          "HttpApiIdForApigThrottling": {
+            "Description": "HTTP API ID",
+            "Value": {
+              "Ref": "HttpApi"
+            },
+            "Export": {
+              "Name": "sls-aws-node-http-api-project-dev-HttpApiIdForApigThrottling"
             }
           }
         }
@@ -1493,8 +2050,15 @@
       },
       "vpc": {}
     },
+    "custom": {
+      "apiGatewayThrottling": {
+        "maxRequestsPerSecond": 1000,
+        "maxConcurrentRequests": 500
+      }
+    },
     "plugins": [
-      "serverless-iam-roles-per-function"
+      "serverless-iam-roles-per-function",
+      "serverless-api-gateway-throttling"
     ],
     "pluginsData": {},
     "functions": {
@@ -1515,13 +2079,14 @@
             "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"AddTodoIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
           }
         ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-addTodo",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AddTodoLambdaVersionZ2uFccwrCxfqeG0g1SToS9ZuWFdcjzIusWG4UNw"
+        "versionLogicalId": "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs"
       },
       "fetchTodos": {
         "handler": "s_fetchTodos.handler",
@@ -1535,13 +2100,19 @@
             "resolvedPath": "/todos"
           }
         ],
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"FetchTodosIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-fetchTodos",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodosLambdaVersionuHTYQRKyDMuSwErfiKZ7YIxdzW8pkelcg1H5pXOLjM"
+        "versionLogicalId": "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng"
       },
       "fetchTodo": {
         "handler": "s_fetchTodo.handler",
@@ -1555,13 +2126,19 @@
             "resolvedPath": "/todo/{id}"
           }
         ],
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"FetchTodoIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-fetchTodo",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodoLambdaVersionrbw1qxzm6W4sZTuZEgZAKTGCbzQKa7LAVgr7Ajs68"
+        "versionLogicalId": "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk"
       },
       "updateTodo": {
         "handler": "s_updateTodo.handler",
@@ -1575,13 +2152,19 @@
             "resolvedPath": "/todo/{id}"
           }
         ],
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"UpdateTodoIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-updateTodo",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "UpdateTodoLambdaVersionccjNMc9NXDXnFtDNcA4pVhClrfKnbolKoZRBkftC0"
+        "versionLogicalId": "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE"
       },
       "registerUser": {
         "handler": "s_registerUser.handler",
@@ -1594,13 +2177,14 @@
             }
           }
         ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-registerUser",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "RegisterUserLambdaVersionUdMMaSIlI7SgKVCemBV93Imv7EwMjn5OAz3vAwSgfqs"
+        "versionLogicalId": "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE"
       },
       "loginUser": {
         "handler": "s_loginUser.handler",
@@ -1613,13 +2197,39 @@
             }
           }
         ],
+        "tracing": true,
         "name": "aws-node-http-api-project-dev-loginUser",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "LoginUserLambdaVersion9tDkMMN2CU6GJ57JnXRZ81z70uesUILg2lwB7mHXrA"
+        "versionLogicalId": "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY"
+      },
+      "throttlingFunction": {
+        "handler": "s_throttlingFunction.handler",
+        "events": [
+          {
+            "sns": {
+              "arn": {
+                "Ref": "TopicInvocationRateAlarm"
+              },
+              "topicName": "invocation-rate-alarm"
+            }
+          }
+        ],
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ThrottlingFunctionIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "name": "aws-node-http-api-project-dev-throttlingFunction",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs18.x",
+        "vpc": {},
+        "versionLogicalId": "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0"
       }
     },
     "resources": {
@@ -1674,19 +2284,105 @@
               "USER_PASSWORD_AUTH"
             ]
           }
+        },
+        "TopicErroringLambdaAlarm": {
+          "Type": "AWS::SNS::Topic",
+          "Properties": {
+            "TopicName": "lambda-fehler-alarm"
+          }
+        },
+        "ErroringLambdaAlarm": {
+          "Type": "AWS::CloudWatch::Alarm",
+          "Properties": {
+            "AlarmDescription": "Lambda Fehler",
+            "Namespace": "AWS/Lambda",
+            "MetricName": "Errors",
+            "Statistic": "Sum",
+            "Threshold": 3,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "EvaluationPeriods": 1,
+            "Period": 300,
+            "TreatMissingData": "breaching",
+            "AlarmActions": [
+              {
+                "Ref": "TopicErroringLambdaAlarm"
+              }
+            ],
+            "Dimensions": [
+              {
+                "Name": "FunctionName",
+                "Value": "addTodo"
+              }
+            ]
+          }
+        },
+        "TopicErroringLambdaAlarmSubscription": {
+          "Type": "AWS::SNS::Subscription",
+          "Properties": {
+            "Endpoint": "ivanbond123@gmail.com",
+            "Protocol": "email",
+            "TopicArn": {
+              "Ref": "TopicErroringLambdaAlarm"
+            }
+          }
+        },
+        "TopicInvocationRateAlarm": {
+          "Type": "AWS::SNS::Topic",
+          "Properties": {
+            "TopicName": "invocation-rate-alarm"
+          }
+        },
+        "InvocationRateAlarm": {
+          "Type": "AWS::CloudWatch::Alarm",
+          "Properties": {
+            "AlarmDescription": "Alarm für hohe Aufrufrate der Lambda-Funktion addTodo",
+            "Namespace": "AWS/Lambda",
+            "MetricName": "Invocations",
+            "Statistic": "Sum",
+            "Threshold": 100,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "EvaluationPeriods": 1,
+            "Period": 60,
+            "TreatMissingData": "breaching",
+            "AlarmActions": [
+              {
+                "Ref": "TopicInvocationRateAlarm"
+              }
+            ],
+            "Dimensions": [
+              {
+                "Name": "FunctionName",
+                "Value": "addTodo"
+              }
+            ]
+          }
+        },
+        "InvocationRateAlarmSubscriptionEmail": {
+          "Type": "AWS::SNS::Subscription",
+          "Properties": {
+            "Endpoint": "ivanbond123@gmail.com",
+            "Protocol": "email",
+            "TopicArn": {
+              "Ref": "TopicInvocationRateAlarm"
+            }
+          }
         }
       },
       "Outputs": {}
     },
-    "configValidationMode": "warn",
+    "configValidationMode": "error",
     "serviceFilename": "serverless.yml",
     "initialServerlessConfig": {
       "org": "presentolo",
       "app": "serverless-aws-security",
       "service": "aws-node-http-api-project",
       "frameworkVersion": "3",
+      "configValidationMode": "error",
       "plugins": {
         "$ref": "$[\"service\"][\"plugins\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
       },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
@@ -1705,10 +2401,10 @@
     "isDashboardAppPreconfigured": true,
     "orgUid": "c0276d8a-f6ec-4494-9aed-aad7e8d117f4",
     "appUid": "p1qwhQJVLGHVyrHbDz",
-    "artifact": "/Users/kc/Desktop/serverless-security-aspects/.serverless/aws-node-http-api-project.zip"
+    "artifact": "/home/kc/Schreibtisch/Bachelor_App/serverless-security-aspects/.serverless/aws-node-http-api-project.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723562012923-2024-08-13T15:13:32.923Z",
+    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z",
     "artifact": "aws-node-http-api-project.zip"
   }
 }
