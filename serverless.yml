@@ -8,6 +8,7 @@ configValidationMode: error # Stellt sicher, dass das Deployment bei Konfigurati
 plugins:
   - serverless-iam-roles-per-function
   - serverless-api-gateway-throttling
+  - serverless-associate-waf
 
 custom:
   # Configures throttling settings for the API Gateway stage
@@ -15,6 +16,11 @@ custom:
   apiGatewayThrottling:
     maxRequestsPerSecond: 1000
     maxConcurrentRequests: 500
+
+  # Associate WAF Web ACL with API Gateway of current stack
+  associateWaf:
+    name: ${self:resources.Resources.WAFRegionalWebACL.Properties.Name}
+    version: Regional
 
 provider:
   name: aws
@@ -225,7 +231,7 @@ resources:
     InvocationRateAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
-        AlarmDescription: Alarm für hohe Aufrufrate der Lambda-Funktion addTodo
+        AlarmDescription: Alarm für hohe Aufrufrate der Lambda-Funktion loginUser
         Namespace: AWS/Lambda
         MetricName: Invocations
         Statistic: Sum
@@ -238,12 +244,12 @@ resources:
           - !Ref TopicInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value: addTodo
+            Value: loginUser
 
     InvocationRateAlarmOK:
       Type: AWS::CloudWatch::Alarm
       Properties:
-        AlarmDescription: Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion addTodo ist normal
+        AlarmDescription: Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion loginUser ist normal
         Namespace: AWS/Lambda
         MetricName: Invocations
         Statistic: Sum
@@ -256,7 +262,7 @@ resources:
           - !Ref TopicLowInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value: addTodo
+            Value: loginUser
 
     InvocationRateAlarmSubscriptionEmail:
       Type: AWS::SNS::Subscription
@@ -264,6 +270,9 @@ resources:
         Endpoint: ivanbond123@gmail.com
         Protocol: email
         TopicArn: !Ref TopicInvocationRateAlarm
+
+    # Create WAF Regional Web ACL with RateBased Rule to Prevent HTTP Flood DDos Attack
+    WAFRegionalWebACL: ${file(src/resources/waf.yml):WAFRegionalWebACL}
 
     # InvocationRateAlarmSubscription:
     #   Type: AWS::SNS::Subscription

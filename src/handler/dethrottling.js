@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda();
 
 exports.handler = async (event) => {
-    const functionName = 'addTodo';
+    const functionName = 'loginUser';
 
     try {
         current_concurrency = await lambda.getFunctionConcurrency({

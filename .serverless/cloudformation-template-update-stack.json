@@ -313,7 +313,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_addTodo.handler",
         "Runtime": "nodejs18.x",
@@ -355,7 +355,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_fetchTodos.handler",
         "Runtime": "nodejs18.x",
@@ -397,7 +397,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_fetchTodo.handler",
         "Runtime": "nodejs18.x",
@@ -439,7 +439,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_updateTodo.handler",
         "Runtime": "nodejs18.x",
@@ -481,7 +481,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_registerUser.handler",
         "Runtime": "nodejs18.x",
@@ -522,7 +522,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_loginUser.handler",
         "Runtime": "nodejs18.x",
@@ -563,7 +563,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_throttlingFunction.handler",
         "Runtime": "nodejs18.x",
@@ -605,7 +605,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+          "S3Key": "serverless/aws-node-http-api-project/dev/1723813206921-2024-08-16T13:00:06.921Z/aws-node-http-api-project.zip"
         },
         "Handler": "s_dethrottlingFunction.handler",
         "Runtime": "nodejs18.x",
@@ -640,84 +640,84 @@
         "DethrottlingFunctionLogGroup"
       ]
     },
-    "AddTodoLambdaVersionYaxD4HIPyw54QIA2oyWChsOJ6fvmmPPQhJqUjiNR5T0": {
+    "AddTodoLambdaVersionuZL3TYW9ZVFjMooCKsi5Al0m3pfx1Rwq9frkERF74": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AddTodoLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "FetchTodosLambdaVersionmnxzxb9X6kI2pLnFpQYJyO1lLlcpGA7DTg8BiTlOP9I": {
+    "FetchTodosLambdaVersionckJfzBEpQNzlHyuVRIevp81NZ20hadtMljpjThPJWPw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FetchTodosLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "FetchTodoLambdaVersionJkGldJ5MiJan226pAfWPHPCHLcaOvnoLSTRyAK1Z04": {
+    "FetchTodoLambdaVersionQrM1moWndbvhDwDBlLBTNMrqYMz94xzESxr6XmBzNyc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FetchTodoLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "UpdateTodoLambdaVersionnVo0IY1lx5oadn6o0eLu74MVHX0V5enqHAYB70V5Eg": {
+    "UpdateTodoLambdaVersionfatQminTVXMwsiWOgiLEEX6PDOrL8quTgD5Ht3HzQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateTodoLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "RegisterUserLambdaVersionCy4t69Q7t1jtQbV5CYfNVOuxHimmGDi35CSlcNUZ0": {
+    "RegisterUserLambdaVersion0hDSLYSeJ1Ar8prjWT6pmLlUsN21CwI1tiCCA1M4yQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "RegisterUserLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "LoginUserLambdaVersionX5Vn6I9Qtg7gz7Nwxo9cQYTwg4WgCPo6jwRiXoAcDU": {
+    "LoginUserLambdaVersionwSCOHgKXMYA3niNuiZhsrD61GSh7afU5XiQVxMTQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "LoginUserLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "ThrottlingFunctionLambdaVersionEUvkPSfXlb9Wsb6XMm8MhJDJnFAE6srE6j46YGo9Y": {
+    "ThrottlingFunctionLambdaVersion9kCeF6dQP2dtCLrm6RGZ7D3k9OCGHCZONuzc9a0uOss": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ThrottlingFunctionLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
-    "DethrottlingFunctionLambdaVersionUfPPibA8QL3xBohnXuWvPefYzCEvlJOCfG1JmyqDiro": {
+    "DethrottlingFunctionLambdaVersionzNQvPkAiBQV5nTvKTctDFHGYB6HyewGClnK5gTLEac": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DethrottlingFunctionLambdaFunction"
         },
-        "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+        "CodeSha256": "KPu5QKqf3g+ZhcJZ8AiVNlDWdSt7LNQb9i8UctKpuio="
       }
     },
     "ApiGatewayRestApi": {
@@ -854,7 +854,7 @@
         "LoginUserLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1723803857877": {
+    "ApiGatewayDeployment1723813192804": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1920,7 +1920,7 @@
     "InvocationRateAlarm": {
       "Type": "AWS::CloudWatch::Alarm",
       "Properties": {
-        "AlarmDescription": "Alarm für hohe Aufrufrate der Lambda-Funktion addTodo",
+        "AlarmDescription": "Alarm für hohe Aufrufrate der Lambda-Funktion loginUser",
         "Namespace": "AWS/Lambda",
         "MetricName": "Invocations",
         "Statistic": "Sum",
@@ -1937,7 +1937,7 @@
         "Dimensions": [
           {
             "Name": "FunctionName",
-            "Value": "addTodo"
+            "Value": "loginUser"
           }
         ]
       }
@@ -1945,7 +1945,7 @@
     "InvocationRateAlarmOK": {
       "Type": "AWS::CloudWatch::Alarm",
       "Properties": {
-        "AlarmDescription": "Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion addTodo ist normal",
+        "AlarmDescription": "Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion loginUser ist normal",
         "Namespace": "AWS/Lambda",
         "MetricName": "Invocations",
         "Statistic": "Sum",
@@ -1962,7 +1962,7 @@
         "Dimensions": [
           {
             "Name": "FunctionName",
-            "Value": "addTodo"
+            "Value": "loginUser"
           }
         ]
       }
@@ -1975,6 +1975,42 @@
         "TopicArn": {
           "Ref": "TopicInvocationRateAlarm"
         }
+      }
+    },
+    "WAFRegionalWebACL": {
+      "Type": "AWS::WAFv2::WebACL",
+      "Properties": {
+        "Name": "ApiGateway-HTTP-Flood-Prevent-Auto",
+        "Scope": "REGIONAL",
+        "Description": "WAF Regional Web ACL to Prevent HTTP Flood DDos Attack",
+        "DefaultAction": {
+          "Allow": {}
+        },
+        "VisibilityConfig": {
+          "SampledRequestsEnabled": true,
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "ApiGateway-HTTP-Flood-Prevent-Metric"
+        },
+        "Rules": [
+          {
+            "Name": "HTTP-Flood-Prevent-Rule",
+            "Priority": 0,
+            "Action": {
+              "Block": {}
+            },
+            "VisibilityConfig": {
+              "SampledRequestsEnabled": true,
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "HTTP-Flood-Prevent-Rule-Metric"
+            },
+            "Statement": {
+              "RateBasedStatement": {
+                "AggregateKeyType": "IP",
+                "Limit": 2000
+              }
+            }
+          }
+        ]
       }
     }
   },
@@ -2001,7 +2037,7 @@
     "AddTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AddTodoLambdaVersionYaxD4HIPyw54QIA2oyWChsOJ6fvmmPPQhJqUjiNR5T0"
+        "Ref": "AddTodoLambdaVersionuZL3TYW9ZVFjMooCKsi5Al0m3pfx1Rwq9frkERF74"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-AddTodoLambdaFunctionQualifiedArn"
@@ -2010,7 +2046,7 @@
     "FetchTodosLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FetchTodosLambdaVersionmnxzxb9X6kI2pLnFpQYJyO1lLlcpGA7DTg8BiTlOP9I"
+        "Ref": "FetchTodosLambdaVersionckJfzBEpQNzlHyuVRIevp81NZ20hadtMljpjThPJWPw"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-FetchTodosLambdaFunctionQualifiedArn"
@@ -2019,7 +2055,7 @@
     "FetchTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FetchTodoLambdaVersionJkGldJ5MiJan226pAfWPHPCHLcaOvnoLSTRyAK1Z04"
+        "Ref": "FetchTodoLambdaVersionQrM1moWndbvhDwDBlLBTNMrqYMz94xzESxr6XmBzNyc"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-FetchTodoLambdaFunctionQualifiedArn"
@@ -2028,7 +2064,7 @@
     "UpdateTodoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateTodoLambdaVersionnVo0IY1lx5oadn6o0eLu74MVHX0V5enqHAYB70V5Eg"
+        "Ref": "UpdateTodoLambdaVersionfatQminTVXMwsiWOgiLEEX6PDOrL8quTgD5Ht3HzQ"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-UpdateTodoLambdaFunctionQualifiedArn"
@@ -2037,7 +2073,7 @@
     "RegisterUserLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "RegisterUserLambdaVersionCy4t69Q7t1jtQbV5CYfNVOuxHimmGDi35CSlcNUZ0"
+        "Ref": "RegisterUserLambdaVersion0hDSLYSeJ1Ar8prjWT6pmLlUsN21CwI1tiCCA1M4yQ"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -2046,7 +2082,7 @@
     "LoginUserLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "LoginUserLambdaVersionX5Vn6I9Qtg7gz7Nwxo9cQYTwg4WgCPo6jwRiXoAcDU"
+        "Ref": "LoginUserLambdaVersionwSCOHgKXMYA3niNuiZhsrD61GSh7afU5XiQVxMTQ"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-LoginUserLambdaFunctionQualifiedArn"
@@ -2055,7 +2091,7 @@
     "ThrottlingFunctionLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ThrottlingFunctionLambdaVersionEUvkPSfXlb9Wsb6XMm8MhJDJnFAE6srE6j46YGo9Y"
+        "Ref": "ThrottlingFunctionLambdaVersion9kCeF6dQP2dtCLrm6RGZ7D3k9OCGHCZONuzc9a0uOss"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-ThrottlingFunctionLambdaFunctionQualifiedArn"
@@ -2064,7 +2100,7 @@
     "DethrottlingFunctionLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DethrottlingFunctionLambdaVersionUfPPibA8QL3xBohnXuWvPefYzCEvlJOCfG1JmyqDiro"
+        "Ref": "DethrottlingFunctionLambdaVersionzNQvPkAiBQV5nTvKTctDFHGYB6HyewGClnK5gTLEac"
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-DethrottlingFunctionLambdaFunctionQualifiedArn"
@@ -2146,6 +2182,15 @@
       },
       "Export": {
         "Name": "sls-aws-node-http-api-project-dev-HttpApiIdForApigThrottling"
+      }
+    },
+    "ApiGatewayRestApiWaf": {
+      "Description": "Rest API Id",
+      "Value": {
+        "Ref": "ApiGatewayRestApi"
+      },
+      "Export": {
+        "Name": "sls-aws-node-http-api-project-dev-ApiGatewayRestApiWaf"
       }
     }
   }

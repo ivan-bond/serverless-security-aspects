@@ -3,7 +3,7 @@ const lambda = new AWS.Lambda();
 
 exports.handler = async (event) => {
     // Beispielhafte Logik, um die maximale Anzahl gleichzeitiger Ausführungen festzulegen
-    const functionName = 'addTodo';
+    const functionName = 'loginUser';
     const concurrencyLimit = 5; // Anzahl der maximalen gleichzeitigen Ausführungen
 
     try {
