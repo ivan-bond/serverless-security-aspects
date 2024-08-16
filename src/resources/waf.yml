@@ -1,26 +1,27 @@
 # Create WAF Regional Web ACL with Rate-Based Rule to Prevent HTTP Flood DDoS Attack
 WAFRegionalWebACL:
-  Type: "AWS::WAFv2::WebACL"
+  Type: AWS::WAFv2::WebACL
   Properties:
-    Name: ApiGateway-HTTP-Flood-Prevent-Auto
-    Scope: REGIONAL
-    Description: WAF Regional Web ACL to Prevent HTTP Flood DDos Attack
-    DefaultAction:
-      Allow: {}
+    Name: APIGateway-Block-DoS-DoW
+    Scope: REGIONAL  # Regionale Web ACL
+    Description: WAF Regional Web ACL zum Blockieren von DoS- und DoW-Angriffen
+    DefaultAction: 
+      Block: {} # Standard-Aktion bei Regeltreffer: Anfragen blocken
     VisibilityConfig:
       SampledRequestsEnabled: true
       CloudWatchMetricsEnabled: true
-      MetricName: ApiGateway-HTTP-Flood-Prevent-Metric
+      MetricName: ApiGateway-Block-DoS-DoW-Metric
     Rules:
-      - Name: HTTP-Flood-Prevent-Rule
-        Priority: 0
+      - Name: Block-DoS-DoW-Rule  # Name der Regel
+        Priority: 0  # Priorität der Regel (niedrige Priorität wird zuerst ausgewertet)
         Action:
           Block: {}
         VisibilityConfig:
           SampledRequestsEnabled: true
           CloudWatchMetricsEnabled: true
-          MetricName: HTTP-Flood-Prevent-Rule-Metric
+          MetricName: Block-DoS-DoW-Rule-Metric
         Statement:
-          RateBasedStatement:
-            AggregateKeyType: IP
-            Limit: 2000  # rate limit adjust as per your real traffic
+          RateBasedStatement: 
+            AggregateKeyType: IP  # IP-Adresse als Grundlage für die Ratenbeschränkung
+            Limit: 150  # Maximale Anfragen pro IP in einem Zeitraum
+            EvaluationWindowSec: 60  # Zeitraum in Sekunden
