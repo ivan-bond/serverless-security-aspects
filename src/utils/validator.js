@@ -1,6 +1,10 @@
 exports.bodyValidator = (schema) => ({
   before: (handler, next) => {
     const { body } = handler.event;
+
+    // Validierung bei Amazon SNS als event source:
+    // const { body } = handler.event.Records[0].Sns.Message;
+
     if (!body) {
       throw new Error("Empty request body!");
     }
