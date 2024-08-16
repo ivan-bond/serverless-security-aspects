@@ -159,6 +159,12 @@
               "LogGroupName": "/aws/lambda/aws-node-http-api-project-dev-throttlingFunction"
             }
           },
+          "DethrottlingFunctionLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/aws-node-http-api-project-dev-dethrottlingFunction"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -323,6 +329,12 @@
                               "ThrottlingFunctionLogGroup",
                               "Arn"
                             ]
+                          },
+                          {
+                            "Fn::GetAtt": [
+                              "DethrottlingFunctionLogGroup",
+                              "Arn"
+                            ]
                           }
                         ]
                       }
@@ -339,7 +351,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_addTodo.handler",
               "Runtime": "nodejs18.x",
@@ -381,7 +393,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodos.handler",
               "Runtime": "nodejs18.x",
@@ -423,7 +435,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_fetchTodo.handler",
               "Runtime": "nodejs18.x",
@@ -465,7 +477,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_updateTodo.handler",
               "Runtime": "nodejs18.x",
@@ -507,7 +519,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_registerUser.handler",
               "Runtime": "nodejs18.x",
@@ -548,7 +560,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_loginUser.handler",
               "Runtime": "nodejs18.x",
@@ -589,7 +601,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z/aws-node-http-api-project.zip"
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
               },
               "Handler": "s_throttlingFunction.handler",
               "Runtime": "nodejs18.x",
@@ -624,74 +636,126 @@
               "ThrottlingFunctionLogGroup"
             ]
           },
-          "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs": {
+          "DethrottlingFunctionLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z/aws-node-http-api-project.zip"
+              },
+              "Handler": "s_dethrottlingFunction.handler",
+              "Runtime": "nodejs18.x",
+              "FunctionName": "aws-node-http-api-project-dev-dethrottlingFunction",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "TracingConfig": {
+                "Mode": "Active"
+              },
+              "Environment": {
+                "Variables": {
+                  "COGNITO_CLIENT_ID": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"COGNITO_CLIENT_ID\"]"
+                  },
+                  "COGNITO_USER_POOL_ID": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"COGNITO_USER_POOL_ID\"]"
+                  },
+                  "TABLE_NAME": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"TABLE_NAME\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "DethrottlingFunctionIamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "DethrottlingFunctionIamRoleLambdaExecution",
+              "DethrottlingFunctionLogGroup"
+            ]
+          },
+          "AddTodoLambdaVersionYaxD4HIPyw54QIA2oyWChsOJ6fvmmPPQhJqUjiNR5T0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddTodoLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng": {
+          "FetchTodosLambdaVersionmnxzxb9X6kI2pLnFpQYJyO1lLlcpGA7DTg8BiTlOP9I": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodosLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk": {
+          "FetchTodoLambdaVersionJkGldJ5MiJan226pAfWPHPCHLcaOvnoLSTRyAK1Z04": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FetchTodoLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE": {
+          "UpdateTodoLambdaVersionnVo0IY1lx5oadn6o0eLu74MVHX0V5enqHAYB70V5Eg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateTodoLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE": {
+          "RegisterUserLambdaVersionCy4t69Q7t1jtQbV5CYfNVOuxHimmGDi35CSlcNUZ0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RegisterUserLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY": {
+          "LoginUserLambdaVersionX5Vn6I9Qtg7gz7Nwxo9cQYTwg4WgCPo6jwRiXoAcDU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "LoginUserLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
-          "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0": {
+          "ThrottlingFunctionLambdaVersionEUvkPSfXlb9Wsb6XMm8MhJDJnFAE6srE6j46YGo9Y": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ThrottlingFunctionLambdaFunction"
               },
-              "CodeSha256": "mFggzF2AneDhEVBnvOkxAxsdJ71gMwNHAyszsZyzLB8="
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
+            }
+          },
+          "DethrottlingFunctionLambdaVersionUfPPibA8QL3xBohnXuWvPefYzCEvlJOCfG1JmyqDiro": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DethrottlingFunctionLambdaFunction"
+              },
+              "CodeSha256": "ExmIK0eEAzNXKjMkgDD2WXRDBRdEYSnslwLWpvANspo="
             }
           },
           "ApiGatewayRestApi": {
@@ -828,7 +892,7 @@
               "LoginUserLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1723749314466": {
+          "ApiGatewayDeployment1723803857877": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -943,6 +1007,37 @@
               "Principal": "sns.amazonaws.com",
               "SourceArn": {
                 "Ref": "TopicInvocationRateAlarm"
+              }
+            }
+          },
+          "DethrottlingFunctionSnsSubscriptionLowinvocationratealarm": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {
+              "TopicArn": {
+                "Ref": "TopicLowInvocationRateAlarm"
+              },
+              "Protocol": "lambda",
+              "Endpoint": {
+                "Fn::GetAtt": [
+                  "DethrottlingFunctionLambdaFunction",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "DethrottlingFunctionLambdaPermissionLowinvocationratealarmSNS": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "DethrottlingFunctionLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "sns.amazonaws.com",
+              "SourceArn": {
+                "Ref": "TopicLowInvocationRateAlarm"
               }
             }
           },
@@ -1669,6 +1764,81 @@
               "ManagedPolicyArns": []
             }
           },
+          "DethrottlingFunctionIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-node-http-api-project",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-node-http-api-project-dev-dethrottlingFunction:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "lambda:PutFunctionConcurrency"
+                        ],
+                        "Resource": "*"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-node-http-api-project",
+                    "dev",
+                    "dethrottlingFunction",
+                    {
+                      "Ref": "AWS::Region"
+                    }
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
+          },
           "TodoTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
@@ -1767,6 +1937,12 @@
               "TopicName": "invocation-rate-alarm"
             }
           },
+          "TopicLowInvocationRateAlarm": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+              "TopicName": "low-invocation-rate-alarm"
+            }
+          },
           "InvocationRateAlarm": {
             "Type": "AWS::CloudWatch::Alarm",
             "Properties": {
@@ -1782,6 +1958,31 @@
               "AlarmActions": [
                 {
                   "Ref": "TopicInvocationRateAlarm"
+                }
+              ],
+              "Dimensions": [
+                {
+                  "Name": "FunctionName",
+                  "Value": "addTodo"
+                }
+              ]
+            }
+          },
+          "InvocationRateAlarmOK": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+              "AlarmDescription": "Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion addTodo ist normal",
+              "Namespace": "AWS/Lambda",
+              "MetricName": "Invocations",
+              "Statistic": "Sum",
+              "Threshold": 100,
+              "ComparisonOperator": "LessThanThreshold",
+              "EvaluationPeriods": 1,
+              "Period": 60,
+              "TreatMissingData": "breaching",
+              "OKActions": [
+                {
+                  "Ref": "TopicLowInvocationRateAlarm"
                 }
               ],
               "Dimensions": [
@@ -1826,7 +2027,7 @@
           "AddTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs"
+              "Ref": "AddTodoLambdaVersionYaxD4HIPyw54QIA2oyWChsOJ6fvmmPPQhJqUjiNR5T0"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-AddTodoLambdaFunctionQualifiedArn"
@@ -1835,7 +2036,7 @@
           "FetchTodosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng"
+              "Ref": "FetchTodosLambdaVersionmnxzxb9X6kI2pLnFpQYJyO1lLlcpGA7DTg8BiTlOP9I"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodosLambdaFunctionQualifiedArn"
@@ -1844,7 +2045,7 @@
           "FetchTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk"
+              "Ref": "FetchTodoLambdaVersionJkGldJ5MiJan226pAfWPHPCHLcaOvnoLSTRyAK1Z04"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-FetchTodoLambdaFunctionQualifiedArn"
@@ -1853,7 +2054,7 @@
           "UpdateTodoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE"
+              "Ref": "UpdateTodoLambdaVersionnVo0IY1lx5oadn6o0eLu74MVHX0V5enqHAYB70V5Eg"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-UpdateTodoLambdaFunctionQualifiedArn"
@@ -1862,7 +2063,7 @@
           "RegisterUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE"
+              "Ref": "RegisterUserLambdaVersionCy4t69Q7t1jtQbV5CYfNVOuxHimmGDi35CSlcNUZ0"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -1871,7 +2072,7 @@
           "LoginUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY"
+              "Ref": "LoginUserLambdaVersionX5Vn6I9Qtg7gz7Nwxo9cQYTwg4WgCPo6jwRiXoAcDU"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-LoginUserLambdaFunctionQualifiedArn"
@@ -1880,10 +2081,19 @@
           "ThrottlingFunctionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0"
+              "Ref": "ThrottlingFunctionLambdaVersionEUvkPSfXlb9Wsb6XMm8MhJDJnFAE6srE6j46YGo9Y"
             },
             "Export": {
               "Name": "sls-aws-node-http-api-project-dev-ThrottlingFunctionLambdaFunctionQualifiedArn"
+            }
+          },
+          "DethrottlingFunctionLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DethrottlingFunctionLambdaVersionUfPPibA8QL3xBohnXuWvPefYzCEvlJOCfG1JmyqDiro"
+            },
+            "Export": {
+              "Name": "sls-aws-node-http-api-project-dev-DethrottlingFunctionLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -2086,7 +2296,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AddTodoLambdaVersiono3fnfDTHFKqaA1pGVHRnlUn74mHzLUtkgZ3TSs"
+        "versionLogicalId": "AddTodoLambdaVersionYaxD4HIPyw54QIA2oyWChsOJ6fvmmPPQhJqUjiNR5T0"
       },
       "fetchTodos": {
         "handler": "s_fetchTodos.handler",
@@ -2112,7 +2322,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodosLambdaVersioniZBExsJFddT0fikfW36DZhtG1Eb0xO4oFIQTzng"
+        "versionLogicalId": "FetchTodosLambdaVersionmnxzxb9X6kI2pLnFpQYJyO1lLlcpGA7DTg8BiTlOP9I"
       },
       "fetchTodo": {
         "handler": "s_fetchTodo.handler",
@@ -2138,7 +2348,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FetchTodoLambdaVersionrlKaI5hU4C8VvxIDVg8aGZQiRGfj4dttX3SR82QkCk"
+        "versionLogicalId": "FetchTodoLambdaVersionJkGldJ5MiJan226pAfWPHPCHLcaOvnoLSTRyAK1Z04"
       },
       "updateTodo": {
         "handler": "s_updateTodo.handler",
@@ -2164,7 +2374,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "UpdateTodoLambdaVersion8uRnmme38a3bQMs2QMyaz1aU4L64VCsLREKQDhJE"
+        "versionLogicalId": "UpdateTodoLambdaVersionnVo0IY1lx5oadn6o0eLu74MVHX0V5enqHAYB70V5Eg"
       },
       "registerUser": {
         "handler": "s_registerUser.handler",
@@ -2184,7 +2394,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "RegisterUserLambdaVersionWkKjyqajXGgK4D9NiipDIs7I189M5zW0Qu3jQuiE"
+        "versionLogicalId": "RegisterUserLambdaVersionCy4t69Q7t1jtQbV5CYfNVOuxHimmGDi35CSlcNUZ0"
       },
       "loginUser": {
         "handler": "s_loginUser.handler",
@@ -2204,7 +2414,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "LoginUserLambdaVersionqFBrgWFsS5P1gM4RrgTYC7Km7XzfrWhgMGj1Eo3TY"
+        "versionLogicalId": "LoginUserLambdaVersionX5Vn6I9Qtg7gz7Nwxo9cQYTwg4WgCPo6jwRiXoAcDU"
       },
       "throttlingFunction": {
         "handler": "s_throttlingFunction.handler",
@@ -2229,7 +2439,32 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "ThrottlingFunctionLambdaVersionFI4juA3dS6rvhsO2PYvZiyaupgqoD4dlRhBhix71z0"
+        "versionLogicalId": "ThrottlingFunctionLambdaVersionEUvkPSfXlb9Wsb6XMm8MhJDJnFAE6srE6j46YGo9Y"
+      },
+      "dethrottlingFunction": {
+        "handler": "s_dethrottlingFunction.handler",
+        "events": [
+          {
+            "sns": {
+              "arn": {
+                "Ref": "TopicLowInvocationRateAlarm"
+              },
+              "topicName": "low-invocation-rate-alarm"
+            }
+          }
+        ],
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DethrottlingFunctionIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "name": "aws-node-http-api-project-dev-dethrottlingFunction",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs18.x",
+        "vpc": {},
+        "versionLogicalId": "DethrottlingFunctionLambdaVersionUfPPibA8QL3xBohnXuWvPefYzCEvlJOCfG1JmyqDiro"
       }
     },
     "resources": {
@@ -2332,6 +2567,12 @@
             "TopicName": "invocation-rate-alarm"
           }
         },
+        "TopicLowInvocationRateAlarm": {
+          "Type": "AWS::SNS::Topic",
+          "Properties": {
+            "TopicName": "low-invocation-rate-alarm"
+          }
+        },
         "InvocationRateAlarm": {
           "Type": "AWS::CloudWatch::Alarm",
           "Properties": {
@@ -2347,6 +2588,31 @@
             "AlarmActions": [
               {
                 "Ref": "TopicInvocationRateAlarm"
+              }
+            ],
+            "Dimensions": [
+              {
+                "Name": "FunctionName",
+                "Value": "addTodo"
+              }
+            ]
+          }
+        },
+        "InvocationRateAlarmOK": {
+          "Type": "AWS::CloudWatch::Alarm",
+          "Properties": {
+            "AlarmDescription": "Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion addTodo ist normal",
+            "Namespace": "AWS/Lambda",
+            "MetricName": "Invocations",
+            "Statistic": "Sum",
+            "Threshold": 100,
+            "ComparisonOperator": "LessThanThreshold",
+            "EvaluationPeriods": 1,
+            "Period": 60,
+            "TreatMissingData": "breaching",
+            "OKActions": [
+              {
+                "Ref": "TopicLowInvocationRateAlarm"
               }
             ],
             "Dimensions": [
@@ -2404,7 +2670,7 @@
     "artifact": "/home/kc/Schreibtisch/Bachelor_App/serverless-security-aspects/.serverless/aws-node-http-api-project.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723749330698-2024-08-15T19:15:30.698Z",
+    "artifactDirectoryName": "serverless/aws-node-http-api-project/dev/1723803871722-2024-08-16T10:24:31.722Z",
     "artifact": "aws-node-http-api-project.zip"
   }
 }

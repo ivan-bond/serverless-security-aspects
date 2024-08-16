@@ -133,6 +133,18 @@ functions:
           - lambda:PutFunctionConcurrency
         Resource: "*"
 
+  dethrottlingFunction:
+    handler: src/handler/dethrottling.handler
+    events:
+      - sns:
+          arn: !Ref TopicLowInvocationRateAlarm
+          topicName: low-invocation-rate-alarm
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - lambda:PutFunctionConcurrency
+        Resource: "*"
+
 resources:
   Resources:
     TodoTable:
@@ -200,11 +212,15 @@ resources:
         Protocol: email
         TopicArn: !Ref TopicErroringLambdaAlarm
 
-
     TopicInvocationRateAlarm:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: invocation-rate-alarm
+
+    TopicLowInvocationRateAlarm:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: low-invocation-rate-alarm
 
     InvocationRateAlarm:
       Type: AWS::CloudWatch::Alarm
@@ -224,6 +240,24 @@ resources:
           - Name: FunctionName
             Value: addTodo
 
+    InvocationRateAlarmOK:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmDescription: Alarm zurückgesetzt, Aufrufrate der Lambda-Funktion addTodo ist normal
+        Namespace: AWS/Lambda
+        MetricName: Invocations
+        Statistic: Sum
+        Threshold: 100 # Gleicher Schwellenwert
+        ComparisonOperator: LessThanThreshold
+        EvaluationPeriods: 1
+        Period: 60
+        TreatMissingData: breaching
+        OKActions:
+          - !Ref TopicLowInvocationRateAlarm
+        Dimensions:
+          - Name: FunctionName
+            Value: addTodo
+
     InvocationRateAlarmSubscriptionEmail:
       Type: AWS::SNS::Subscription
       Properties:
@@ -231,9 +265,16 @@ resources:
         Protocol: email
         TopicArn: !Ref TopicInvocationRateAlarm
 
-    # InvocationRateAlarmSubscriptionThrottling:
+    # InvocationRateAlarmSubscription:
     #   Type: AWS::SNS::Subscription
     #   Properties:
     #     Endpoint: !GetAtt throttlingFunction.Arn
     #     Protocol: lambda
     #     TopicArn: !Ref TopicInvocationRateAlarm
+
+    # InvocationRateAlarmOKSubscription:
+    #   Type: AWS::SNS::Subscription
+    #   Properties:
+    #     Endpoint: !GetAtt dethrottlingFunction.Arn
+    #     Protocol: lambda
+    #     TopicArn: !Ref TopicLowInvocationRateAlarm
