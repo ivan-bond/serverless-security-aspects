@@ -148,7 +148,8 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
-          - lambda:PutFunctionConcurrency
+          - lambda:GetFunctionConcurrency
+          - lambda:DeleteFunctionConcurrency
         Resource: "*"
 
 resources:
