@@ -192,7 +192,7 @@ resources:
     CodeBuildProject:
       Type: AWS::CodeBuild::Project
       Properties:
-        Name: MyServerlessProject
+        Name: Testprozess
         Source:
           Type: CODEPIPELINE
         Artifacts:
@@ -212,7 +212,7 @@ resources:
     CodePipeline:
       Type: AWS::CodePipeline::Pipeline
       Properties:
-        Name: MyServerlessPipeline
+        Name: cicdProzess
         RoleArn: arn:aws:iam::${AWS::AccountId}:role/service-role/codepipeline-service-role
         Stages:
           - Name: Source
