@@ -226,7 +226,7 @@ resources:
                 OutputArtifacts:
                   - Name: SourceOutput
                 Configuration:
-                  RepositoryName: MyServerlessRepo
+                  RepositoryName: serverless-security-aspects
                   BranchName: main
           - Name: Build
             Actions:
