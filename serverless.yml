@@ -61,7 +61,7 @@ functions:
           Fn::GetAtt:
             - TodoTable
             - Arn
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
 
   fetchTodos:
     handler: src/handler/fetchTodos.handler
@@ -77,7 +77,7 @@ functions:
           Fn::GetAtt:
             - TodoTable
             - Arn
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
 
   fetchTodo:
     handler: src/handler/fetchTodo.handler
@@ -93,7 +93,7 @@ functions:
           Fn::GetAtt:
             - TodoTable
             - Arn
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
           
   updateTodo:
     handler: src/handler/updateTodo.handler
@@ -109,7 +109,7 @@ functions:
           Fn::GetAtt:
             - TodoTable
             - Arn
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
 
   registerUser:
     handler: src/handler/register.handler
@@ -117,7 +117,7 @@ functions:
       - http:
           method: post
           path: /register
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
 
   loginUser:
     handler: src/handler/login.handler
@@ -125,7 +125,7 @@ functions:
       - http:
           method: post
           path: /login
-    tracing: true  # Aktiviert X-Ray Tracing für diese Funktion
+    tracing: true
 
   throttlingFunction:
     handler: src/handler/throttling.handler
@@ -188,6 +188,60 @@ resources:
           Ref: CognitoUserPool
         ExplicitAuthFlows:
           - USER_PASSWORD_AUTH
+
+    CodeBuildProject:
+      Type: AWS::CodeBuild::Project
+      Properties:
+        Name: MyServerlessProject
+        Source:
+          Type: CODEPIPELINE
+        Artifacts:
+          Type: CODEPIPELINE
+        Environment:
+          ComputeType: BUILD_GENERAL1_SMALL
+          Image: aws/codebuild/standard:6.0
+          Type: LINUX_CONTAINER
+        ServiceRole: arn:aws:iam::${AWS::AccountId}:role/service-role/codebuild-service-role
+        TimeoutInMinutes: 20
+        EnvironmentVariables:
+          - Name: STAGE
+            Value: dev
+        Cache:
+          Type: NO_CACHE
+
+    CodePipeline:
+      Type: AWS::CodePipeline::Pipeline
+      Properties:
+        Name: MyServerlessPipeline
+        RoleArn: arn:aws:iam::${AWS::AccountId}:role/service-role/codepipeline-service-role
+        Stages:
+          - Name: Source
+            Actions:
+              - Name: SourceAction
+                ActionTypeId:
+                  Category: Source
+                  Owner: AWS
+                  Provider: CodeCommit
+                  Version: 1
+                OutputArtifacts:
+                  - Name: SourceOutput
+                Configuration:
+                  RepositoryName: MyServerlessRepo
+                  BranchName: main
+          - Name: Build
+            Actions:
+              - Name: BuildAction
+                ActionTypeId:
+                  Category: Build
+                  Owner: AWS
+                  Provider: CodeBuild
+                  Version: 1
+                InputArtifacts:
+                  - Name: SourceOutput
+                OutputArtifacts:
+                  - Name: BuildOutput
+                Configuration:
+                  ProjectName: !Ref CodeBuildProject
 
     TopicErroringLambdaAlarm:
       Type: AWS::SNS::Topic
