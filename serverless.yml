@@ -305,8 +305,7 @@ resources:
           - !Ref TopicInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value:  
-              - registerUser
+            Value:
               - loginUser
 
     InvocationRateAlarmOK:
@@ -325,8 +324,7 @@ resources:
           - !Ref TopicLowInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value:  
-              - registerUser
+            Value:
               - loginUser
 
     InvocationRateAlarmSubscriptionEmail:
