@@ -305,8 +305,7 @@ resources:
           - !Ref TopicInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value:
-              - loginUser
+            Value: loginUser
 
     InvocationRateAlarmOK:
       Type: AWS::CloudWatch::Alarm
@@ -324,8 +323,7 @@ resources:
           - !Ref TopicLowInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value:
-              - loginUser
+            Value: loginUser
 
     InvocationRateAlarmSubscriptionEmail:
       Type: AWS::SNS::Subscription
