@@ -322,7 +322,7 @@ resources:
     InvocationRateAlarmSubscriptionEmail:
       Type: AWS::SNS::Subscription
       Properties:
-        Endpoint: ivanbond123@gmail.com
+        Endpoint: <EMAIL>
         Protocol: email
         TopicArn: !Ref TopicInvocationRateAlarm
 
