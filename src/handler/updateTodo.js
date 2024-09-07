@@ -1,7 +1,17 @@
 const { v4 } = require("uuid")
 const AWS = require("aws-sdk")
 
-const updateTodo = async (event) => {
+const middy = require("middy")
+const Joi = require("joi")
+const { errorHandler } = require("../utils/errorHandler")
+const { bodyValidator } = require("../utils/validator")
+const { authorize } = require("../utils/tokenValidator")
+
+const todoSchema = Joi.object({
+  completed: Joi.boolean()
+})
+
+const updateTodo = middy(async (event) => {
 
   const dynamo = new AWS.DynamoDB.DocumentClient()
 
@@ -24,7 +34,9 @@ const updateTodo = async (event) => {
         msg: "Todo Updated"
     }),
   };
-};
+}).use(authorize())
+  .use(bodyValidator(todoSchema))
+  .use(errorHandler());
 
 module.exports = {
   handler: updateTodo
