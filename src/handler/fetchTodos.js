@@ -1,7 +1,11 @@
 const { v4 } = require("uuid")
 const AWS = require("aws-sdk")
 
-const fetchTodos = async (event) => {
+const middy = require("middy")
+const { errorHandler } = require("../utils/errorHandler")
+const { authorize } = require("../utils/tokenValidator")
+
+const fetchTodos = middy(async (event) => {
 
   const dynamo = new AWS.DynamoDB.DocumentClient()
 
@@ -18,7 +22,8 @@ const fetchTodos = async (event) => {
     statusCode: 200,
     body: JSON.stringify(todos),
   };
-};
+}).use(authorize())
+  .use(errorHandler());
 
 module.exports = {
   handler: fetchTodos
