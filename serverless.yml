@@ -264,7 +264,13 @@ resources:
           - !Ref TopicErroringLambdaAlarm
         Dimensions:
           - Name: FunctionName
-            Value: addTodo
+            Value:  
+              - addTodo
+              - updateTodo
+              - fetchTodos
+              - fetchTodo
+              - registerUser
+              - loginUser
         
     TopicErroringLambdaAlarmSubscription:
       Type: AWS::SNS::Subscription
@@ -299,7 +305,9 @@ resources:
           - !Ref TopicInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value: loginUser
+            Value:  
+              - registerUser
+              - loginUser
 
     InvocationRateAlarmOK:
       Type: AWS::CloudWatch::Alarm
@@ -317,7 +325,9 @@ resources:
           - !Ref TopicLowInvocationRateAlarm
         Dimensions:
           - Name: FunctionName
-            Value: loginUser
+            Value:  
+              - registerUser
+              - loginUser
 
     InvocationRateAlarmSubscriptionEmail:
       Type: AWS::SNS::Subscription
